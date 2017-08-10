@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link type="text/css" href="/styles.css" rel="stylesheet" />
+<title>User Edit Profile Page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Welcome to your private create task page.</h1>
+
+	<form action="/create-task-request" method="post">
+		<div>
+			Welcome <span th:text="${loggedUser.name}"></span>!
+		</div>
+		<div>
+			<label>Task:</label> <input type="text" name="name" />
+		</div>	
+		<div>
+			<label>Begin Date:</label> <input type="date" name="beginDate" />
+		</div>	
+		<div>
+			<label>End Date:</label> <input type="date" name="endDate" />
+		</div>	
+		<div class="button">
+			<button type="submit">Save</button>
+		</div>
+	</form>
+
+</body>
+</html>
+
+

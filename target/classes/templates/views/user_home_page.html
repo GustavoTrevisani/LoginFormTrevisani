@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link type="text/css" href="/styles.css" rel="stylesheet" />
+<title>User Home Page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div>
+<a class="logout" href= "/"> Logout</a>
+</div>
+	Bem vindo
+	<span th:text="${loggedUser.name}"></span>!
+
+	<div>
+		Edit your profile: <a href="/edit-profile-request">Edit profile</a>
+	</div>
+	<div>
+		Create a new task: <a href="/create-task-request">New task </a>
+	</div>
+	<div>Suas tasks:</div>
+	<div th:each="Task : ${taskList}">
+		Name: <span th:text="${Task.name}"></span>
+	</div>
+
+</body>
+</html>
+
+

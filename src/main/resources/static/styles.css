@@ -1,0 +1,28 @@
+/* div.button { */
+/* 	float: left; */
+/* 	height: 120px; */
+/* 	width: 200px; */
+/* 	background-color: yellow; */
+/* } */
+
+/* div.button.red { */
+/* 	background-color: red; */
+/* } */
+
+/* div.button.green { */
+/* 	background-color: green; */
+/* } */
+
+/*  div.button button { */
+/* 	float: left; */
+/* 	width: 100px; */
+/* 	height: 40px; */
+/* 	background: red; */
+/* 	font-size: 18px; */
+a.logout{
+	float: right;
+}	
+
+span.errorMsg {
+	color: red;
+}
