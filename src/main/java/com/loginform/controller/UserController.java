@@ -7,18 +7,28 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.loginform.bean.User;
+import com.loginform.dao.TaskRepository;
 import com.loginform.dao.UserRepository;
 
 @Controller
+@RequestMapping("/user")
 @SessionAttributes("loggedUser")
 public class UserController {
 
 	@Autowired
-	UserRepository userRepo;
+	private UserRepository userRepo;
+	@Autowired
+	private TaskRepository taskRepo;
+
+	@GetMapping("/user-home-action")
+	public String loginRequest() {
+		return "views/user_home_page";
+	}
 
 	@GetMapping("/register")
 	public String registerPage() {
@@ -26,16 +36,17 @@ public class UserController {
 	}
 
 	@PostMapping("/register-action")
-	public String registerRequest(@RequestParam("login") String login, @RequestParam("password") String password, Model model) {
+	public String registerRequest(@RequestParam("login") String login, @RequestParam("password") String password, Model model,
+			RedirectAttributes redAtri) {
 		String msg = "Registered user successfully";
-		model.addAttribute("msg", msg);
+		redAtri.addFlashAttribute("msg", msg);
 		if (userRepo.findOneUserByLogin(login) != null) {
 			msg = "This Login is already been used";
-			model.addAttribute("msg", msg);
-			return "views/register_page";
+			redAtri.addFlashAttribute("msg", msg);
+			return "redirect:/user/register";
 		} else {
 			userRepo.save(new User(login, password));
-			return "views/home_page";
+			return "redirect:/";
 		}
 
 	}
@@ -56,7 +67,7 @@ public class UserController {
 		loggedUser.setGender(gender);
 		loggedUser.setAdress(adress);
 		userRepo.save(loggedUser);
-		return "views/user_home_page";
+		return "redirect:/user/login-action";
 
 	}
 }

@@ -12,13 +12,14 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.Proxy;
 
 @Entity
-@Proxy(lazy = false)
+@Proxy(lazy = false) // verificar necessidade
 public class User {
 
 	@Id
 	@GeneratedValue
 	@Column(name = "user_id")
 	private Long id;
+	@Column(unique =true)
 	private String login;
 	private String password;
 	private String name;
@@ -29,14 +30,23 @@ public class User {
 	private List<Task> tasks;
 
 	public User() {
+		this.tasks = new ArrayList<Task>();
 	}
 
 	public User(String login, String password) {
+		this();
 		this.login = login;
-		this.password = password;
-		this.tasks = new ArrayList<Task>();
+		this.password = password;		
 	}
 	
+	public User(String login, String password, String name, String dateOfBirth, String gender, String adress) {
+		this(login,password);
+		this.name = name;
+		this.dateOfBirth = dateOfBirth;
+		this.gender = gender;
+		this.adress = adress;
+	}
+
 	public Long getId() {
 		return id;
 	}

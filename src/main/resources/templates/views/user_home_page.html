@@ -7,16 +7,16 @@
 </head>
 <body>
 <div>
-<a class="logout" href= "/"> Logout</a>
+<a class="logout" href= "/logout-action"> Logout</a>
 </div>
 	Bem vindo
 	<span th:text="${loggedUser.name}"></span>!
 
 	<div>
-		Edit your profile: <a href="/edit-profile-request">Edit profile</a>
+		Edit your profile: <a href="/user/edit-profile-request">Edit profile</a>
 	</div>
 	<div>
-		Create a new task: <a href="/create-task-request">New task </a>
+		Create a new task: <a href="/task/create-task-request">New task </a>
 	</div>
 	<div>Suas tasks:</div>
 	<div th:each="Task : ${taskList}">
