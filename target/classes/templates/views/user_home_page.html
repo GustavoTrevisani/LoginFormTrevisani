@@ -20,7 +20,7 @@
 	</div>
 	<div>Suas tasks:</div>
 	<div th:each="task : ${loggedUser.tasks}">
-		Name: <span th:text="${task.name}"></span> | <a th:href="'/task/edit?id=' + ${task.id}"> Editar </a>
+		Name: <span th:text="${task.name}"></span> | <a th:href="'/task/edit-task-request-action?id=' + ${task.id}"> Editar </a>
 	</div>
 
 </body>

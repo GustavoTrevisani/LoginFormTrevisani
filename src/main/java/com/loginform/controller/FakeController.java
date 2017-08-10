@@ -1,5 +1,8 @@
 package com.loginform.controller;
 
+import java.time.Instant;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,11 +22,13 @@ public class FakeController {
 	
 	@GetMapping("/database")
 	public String createFakeDatabase() {
-//		User dev = userRepo.save(new User("1", "1", "Dev", "01/01/2000", "Male", "Av. Everywhere,0000"));
-//		Task task1 = taskRepo.save(new Task("Task1", "01/01/2001", "02/01/2001", dev));
-//		Task task2 = taskRepo.save(new Task("Task2", "01/02/2002", "02/02/2002", dev));
-//		dev.getTasks().add(task1);
-//		dev.getTasks().add(task2);
+		Date data = new Date();
+		data = Date.from(Instant.now());		
+		User dev = userRepo.save(new User("1", "1", "Dev", data, "Male", "Av. Everywhere,0000"));
+		Task task1 = taskRepo.save(new Task("Task1", data, data, dev));
+		Task task2 = taskRepo.save(new Task("Task2", data, data , dev));
+		dev.getTasks().add(task1);
+		dev.getTasks().add(task2);
 		return "redirect:/";
 		
 	}

@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link type="text/css" href="/styles.css" rel="stylesheet" />
+<title>User Edit Profile Page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Welcome to your private edit profile page.</h1>
+
+	<form action="/task/edit-task-request-action" method="post">
+		<div>
+			Welcome <span th:text="${loggedUser.name}"></span>!
+		</div>
+		<div>
+			 <input th:value="${id}" type="hidden" name="id" />
+		</div>
+		<div>
+			<label>Task:</label> <input th:value="${task.name}" type="text" name="name" />
+		</div>
+		<div>
+			<label>Begin Date:</label> <input th:value="${beginDate}" type="date" name="beginDate" />
+		</div>
+		<div>
+			<label>End Date:</label> <input th:value="${endDate}" type="date" name="endDate" />
+		</div>
+		<div class="button">
+			<button type="submit">Save</button>
+		</div>
+	</form>
+
+</body>
+</html>
+
+
