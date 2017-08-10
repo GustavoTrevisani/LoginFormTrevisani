@@ -1,5 +1,7 @@
 package com.loginform.bean;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -14,8 +16,8 @@ public class Task {
 	private Long id;
 
 	private String name;
-	private String beginDate;
-	private String endDate;
+	private Date beginDate;
+	private Date endDate;
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
@@ -23,7 +25,7 @@ public class Task {
 	public Task() {
 	}
 	
-	public Task(String name, String beginDate, String endDate, User user) {
+	public Task(String name, Date beginDate, Date endDate, User user) {
 		this.name = name;
 		this.beginDate = beginDate;
 		this.endDate = endDate;
@@ -38,19 +40,19 @@ public class Task {
 		this.name = name;
 	}
 
-	public String getBeginDate() {
+	public Date getBeginDate() {
 		return beginDate;
 	}
 
-	public void setBeginDate(String beginDate) {
+	public void setBeginDate(Date beginDate) {
 		this.beginDate = beginDate;
 	}
 
-	public String getEndDate() {
+	public Date getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(String endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 

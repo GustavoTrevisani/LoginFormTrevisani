@@ -1,6 +1,7 @@
 package com.loginform.bean;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,7 +24,7 @@ public class User {
 	private String login;
 	private String password;
 	private String name;
-	private String dateOfBirth;
+	private Date dateOfBirth;
 	private String gender;
 	private String adress;
 	@OneToMany(targetEntity = Task.class, cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
@@ -39,7 +40,7 @@ public class User {
 		this.password = password;		
 	}
 	
-	public User(String login, String password, String name, String dateOfBirth, String gender, String adress) {
+	public User(String login, String password, String name, Date dateOfBirth, String gender, String adress) {
 		this(login,password);
 		this.name = name;
 		this.dateOfBirth = dateOfBirth;
@@ -95,11 +96,11 @@ public class User {
 		this.adress = adress;
 	}
 
-	public String getDateOfBirth() {
+	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(String dateOfBirth) {
+	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 

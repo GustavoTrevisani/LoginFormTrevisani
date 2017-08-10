@@ -13,10 +13,10 @@
 	<span th:text="${loggedUser.name}"></span>!
 
 	<div>
-		Edit your profile: <a href="/user/edit-profile-request">Edit profile</a>
+		Edit your profile: <a href="/user/edit-profile-request-action">Edit profile</a>
 	</div>
 	<div>
-		Create a new task: <a href="/task/create-task-request">New task </a>
+		Create a new task: <a href="/task/create-task-request-action">New task </a>
 	</div>
 	<div>Suas tasks:</div>
 	<div th:each="task : ${loggedUser.tasks}">

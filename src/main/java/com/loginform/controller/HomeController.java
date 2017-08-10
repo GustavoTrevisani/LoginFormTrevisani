@@ -34,7 +34,7 @@ public class HomeController {
 	}
 
 	@PostMapping("/login-action")
-	public String loginRequest(@RequestParam("login") String login, @RequestParam("password") String password,HttpSession session, Model model) {
+	public String loginRequest(@RequestParam("login") String login, @RequestParam("password") String password, HttpSession session, Model model) {
 		User user = userRepo.findOneUserByLoginAndPassword(login, password);
 		if (user != null) {
 			session.setAttribute("loggedUser", user);

@@ -1,5 +1,10 @@
 package com.loginform.controller;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.loginform.bean.User;
-import com.loginform.dao.TaskRepository;
 import com.loginform.dao.UserRepository;
 
 @Controller
@@ -34,8 +39,7 @@ public class UserController {
 	}
 
 	@PostMapping("/register-action")
-	public String registerRequest(@RequestParam("login") String login, @RequestParam("password") String password, Model model,
-			RedirectAttributes redAtri) {
+	public String registerRequest(@RequestParam("login") String login, @RequestParam("password") String password, Model model) {
 		String msg = "Registered user successfully";
 		model.addAttribute("msg", msg);
 		if (userRepo.findOneUserByLogin(login) != null) {
@@ -60,12 +64,21 @@ public class UserController {
 	public String userEditRequest(@RequestParam("name") String name, @RequestParam("dateOfBirth") String dateOfBirth,
 			@RequestParam("gender") String gender, @RequestParam("adress") String adress, HttpSession session) {
 		User loggedUser = (User) session.getAttribute("loggedUser");
+		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		Date birthDate = null;
+		
+		try {
+			birthDate = formatter.parse(dateOfBirth);			
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}					
 		loggedUser.setName(name);
-		loggedUser.setDateOfBirth(dateOfBirth);
+		loggedUser.setDateOfBirth(birthDate);
 		loggedUser.setGender(gender);
 		loggedUser.setAdress(adress);
 		userRepo.save(loggedUser);
-		return "redirect:/user/login-action";
+		return "redirect:/user/user-home-action";
 
 	}
 }
