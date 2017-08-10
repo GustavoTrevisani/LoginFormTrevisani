@@ -6,9 +6,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<div>
-<a class="logout" href= "/logout-action"> Logout</a>
-</div>
+	<div>
+		<a class="logout" href="/logout-action"> Logout</a>
+	</div>
 	Bem vindo
 	<span th:text="${loggedUser.name}"></span>!
 
@@ -19,8 +19,8 @@
 		Create a new task: <a href="/task/create-task-request">New task </a>
 	</div>
 	<div>Suas tasks:</div>
-	<div th:each="Task : ${taskList}">
-		Name: <span th:text="${Task.name}"></span>
+	<div th:each="task : ${loggedUser.tasks}">
+		Name: <span th:text="${task.name}"></span> | <a th:href="'/task/edit?id=' + ${task.id}"> Editar </a>
 	</div>
 
 </body>

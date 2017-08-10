@@ -22,15 +22,13 @@ public class UserController {
 
 	@Autowired
 	private UserRepository userRepo;
-	@Autowired
-	private TaskRepository taskRepo;
 
 	@GetMapping("/user-home-action")
 	public String loginRequest() {
 		return "views/user_home_page";
 	}
 
-	@GetMapping("/register")
+	@GetMapping("/register-action")
 	public String registerPage() {
 		return "views/register_page";
 	}
@@ -39,26 +37,26 @@ public class UserController {
 	public String registerRequest(@RequestParam("login") String login, @RequestParam("password") String password, Model model,
 			RedirectAttributes redAtri) {
 		String msg = "Registered user successfully";
-		redAtri.addFlashAttribute("msg", msg);
+		model.addAttribute("msg", msg);
 		if (userRepo.findOneUserByLogin(login) != null) {
 			msg = "This Login is already been used";
-			redAtri.addFlashAttribute("msg", msg);
-			return "redirect:/user/register";
+			model.addAttribute("msg", msg);
+			return "views/register_page";
 		} else {
 			userRepo.save(new User(login, password));
-			return "redirect:/";
+			return "views/home_page";
 		}
 
 	}
 
-	@GetMapping("/edit-profile-request")
+	@GetMapping("/edit-profile-request-action")
 	public String editProfilePage(Model model, HttpSession session) {
 		User loggedUser = (User) session.getAttribute("loggedUser");
 		model.addAttribute("loggedUser", loggedUser);
 		return "views/edit_profile_page";
 	}
 
-	@PostMapping("/user-edit-request")
+	@PostMapping("/user-edit-request-action")
 	public String userEditRequest(@RequestParam("name") String name, @RequestParam("dateOfBirth") String dateOfBirth,
 			@RequestParam("gender") String gender, @RequestParam("adress") String adress, HttpSession session) {
 		User loggedUser = (User) session.getAttribute("loggedUser");
