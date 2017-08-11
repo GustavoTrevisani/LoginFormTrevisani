@@ -8,6 +8,7 @@ import java.util.Date;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,8 +33,9 @@ public class TaskController {
 		model.addAttribute("loggedUser", loggedUser);
 		return "views/create_task_page";
 	}
+
 	@GetMapping("/edit-task-request-action")
-	public String editTaskPage(@RequestParam("id") String id,HttpSession session, Model model) {
+	public String editTaskPage(@RequestParam("id") String id, HttpSession session, Model model) {
 		User loggedUser = (User) session.getAttribute("loggedUser");
 		Long taskId = Long.parseLong(id);
 		Task task = taskRepo.findOne(taskId);
@@ -46,27 +48,27 @@ public class TaskController {
 		model.addAttribute("task", task);
 		return "views/edit_task_page";
 	}
+	
 	@PostMapping("/edit-task-request-action")
-	public String editTaskRequest(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("beginDate") String beginDate, @RequestParam("endDate") String endDate, HttpSession session, Model model) {
+	public String editTaskRequest(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("beginDate")@DateTimeFormat (pattern="yyyy-MM-dd") Date beginDate,
+			@RequestParam("endDate")@DateTimeFormat (pattern="yyyy-MM-dd") Date endDate, HttpSession session, Model model) {
 		User loggedUser = (User) session.getAttribute("loggedUser");
 		Long taskId = Long.parseLong(id);
 		Task task = taskRepo.findOne(taskId);			
-		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		Date dateOfBegin = null;
-		Date dateOfEnd = null;
-		try {
-			dateOfBegin = formatter.parse(beginDate);
-			dateOfEnd = formatter.parse(endDate);
-		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}			
-		task.setBeginDate(dateOfBegin);
-		task.setEndDate(dateOfEnd);
+		task.setBeginDate(beginDate);
+		task.setEndDate(endDate);
 		task.setName(name);
 		taskRepo.save(task);
 		loggedUser.getTasks().clear();
-		loggedUser.getTasks().addAll(taskRepo.findByUserId(loggedUser.getId()));		
+		loggedUser.getTasks().addAll(taskRepo.findByUserId(loggedUser.getId()));
+		return "redirect:/user/user-home-action";
+	}
+	
+	@GetMapping("/delete-task-request-action")
+	public String deleteTaskPage(@RequestParam("id") String id, HttpSession session, Model model) {
+		Long taskId = Long.parseLong(id);
+		taskRepo.delete(taskRepo.findOne(taskId));
+		System.out.println(taskId);
 		return "redirect:/user/user-home-action";
 	}
 
@@ -82,9 +84,9 @@ public class TaskController {
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}			
+		}
 		User loggedUser = (User) session.getAttribute("loggedUser");
 		loggedUser.getTasks().add(taskRepo.save(new Task(name, dateOfBegin, dateOfEnd, loggedUser)));
-				return "redirect:/user/user-home-action";
+		return "redirect:/user/user-home-action";
 	}
 }

@@ -9,7 +9,7 @@
 	<div>
 		<a class="logout" href="/logout-action"> Logout</a>
 	</div>
-	Bem vindo
+	Bem vindo	
 	<span th:text="${loggedUser.name}"></span>!
 
 	<div>
@@ -20,7 +20,7 @@
 	</div>
 	<div>Suas tasks:</div>
 	<div th:each="task : ${loggedUser.tasks}">
-		Name: <span th:text="${task.name}"></span> | <a th:href="'/task/edit-task-request-action?id=' + ${task.id}"> Editar </a>
+		Name: <span th:text="${task.name}"> </span> | Begin Date: <span th:text="${#dates.format(task.beginDate, 'dd-MMM-yyyy')}"> </span> | End Date: <span th:text="${#dates.format(task.endDate, 'dd-MMM-yyyy')}"></span>| <a th:href="'/task/edit-task-request-action?id=' + ${task.id}"> Editar </a><a th:href="'/task/delete-task-request-action?id=' + ${task.id}"> Excluir </a>
 	</div>
 
 </body>

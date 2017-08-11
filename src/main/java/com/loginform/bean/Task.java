@@ -7,6 +7,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Task {	
@@ -16,7 +20,11 @@ public class Task {
 	private Long id;
 
 	private String name;
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat (pattern="YYYY-MM-dd")
 	private Date beginDate;
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat (pattern="YYYY-MM-dd")
 	private Date endDate;
 	@ManyToOne
 	@JoinColumn(name = "user_id")

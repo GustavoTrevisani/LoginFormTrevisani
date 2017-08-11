@@ -19,18 +19,18 @@ public class HomeController {
 	private UserRepository userRepo;
 
 	@GetMapping("/")
-	public String homePage(HttpSession session) {
-		if(session.getAttribute("loggedUser")!= null) {
+	public String homePage(HttpSession session, Model model) {
+		if (session.getAttribute("loggedUser") != null) {
 			return "redirect:/user/user-home-action";
 		}
 		return "views/home_page";
 	}
-	
+
 	@GetMapping("/logout-action")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/";
-		
+
 	}
 
 	@PostMapping("/login-action")
@@ -40,8 +40,8 @@ public class HomeController {
 			session.setAttribute("loggedUser", user);
 			return "redirect:/user/user-home-action";
 		} else {
-			model.addAttribute("msg","Login or Password doesn't match ou doesn't exist" );
-			model.addAttribute("msgType","errorMsg");			
+			model.addAttribute("msg", "Login or Password doesn't match ou doesn't exist");
+			model.addAttribute("msgType", "errorMsg");
 			return "views/home_page";
 
 		}
